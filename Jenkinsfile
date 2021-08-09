@@ -1,14 +1,35 @@
-try {
-stage("Building SONAR ...") {
-sh './gradlew clean sonarqube'
-} 
-stage("pushing code to sonarqube"){
-sonarqube {
-properties {
-property "sonar.host.url", http://34.234.40.43:9000/ 
-property "sonar.projectName", "python-project-test2"   
-property "sonar.projectKey", "python-project-test2"
-property "sonar.groovy.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"    }
-}
+pipeline {
+agent any
+tools {nodejs "nodenv"}
+stages {
+ stage("Code Checkout from Github") {
+  steps {
+   git branch: 'devel',
+    credentialsId: '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',
+    url: 'https://github.com/ratnakishorech/ansible.git'
+  }
+ }
+   stage('Code Quality Check via SonarQube') {
+   steps {
+       script {
+       def scannerHome = tool 'sonarqube';
+           withSonarQubeEnv("sonarqube-container") {
+           sh "${tool("sonarqube")}/bin/sonar-scanner \
+           -Dsonar.projectKey=test-node-js \
+           -Dsonar.sources=. \
+           -Dsonar.css.node=. \
+           -Dsonar.host.url=http://34.234.40.43:9000/ \
+           -Dsonar.login=72493430aec029262973c8bad4aa0178c5162c09"
+               }
+           }
+       }
+   }
+   stage("Install Project Dependencies") {
+   steps {
+       nodejs(nodeJSInstallationName: 'nodenv'){
+           sh "npm install"
+           }
+       }
+   }
 }
 }
