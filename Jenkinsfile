@@ -1,12 +1,35 @@
-
-node {
-  stage('SCM') {
-    git 'https://github.com/ratnakishorech/ansible.git'
+pipeline {
+agent any
+//tools {nodejs "nodenv"}
+stages {
+ stage("Code Checkout from Github") {
+  steps {
+   git branch: 'devel',
+    credentialsId: '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',
+    url: 'https://github.com/ratnakishorech/ansible.git'
   }
-  stage('SonarQube analysis') {
-    def scannerHome = tool 'SonarScanner 4.0';
-    withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
+ }
+   stage('Code Quality Check via SonarQube') {
+   steps {
+       script {
+       def scannerHome = tool 'SonarQube Scanner';
+           //withSonarQubeEnv("sonarqube-container") {
+           sh "${tool("sonarqube")}/bin/sonar-scanner \
+           -Dsonar.projectKey=python-project-test2 \
+           -Dsonar.sources=. \
+           -Dsonar.css.node=. \
+           -Dsonar.host.url=http://34.234.40.43:9000/ \
+           -Dsonar.login=72493430aec029262973c8bad4aa0178c5162c09"
+               }
+           }
+       }
+   }
+   stage("Install Project Dependencies") {
+   steps {
+       nodejs(nodeJSInstallationName: 'nodenv'){
+           sh "npm install"
+           }
+       }
+   }
+}
 }
