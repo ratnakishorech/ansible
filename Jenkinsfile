@@ -1,6 +1,6 @@
 pipeline {
 agent any
-tools {nodejs "devel"}
+#tools {nodejs "devel"}
 stages {
  stage("Code Checkout from Github") {
   steps {
