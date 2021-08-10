@@ -12,7 +12,7 @@ stages {
    stage('Code Quality Check via SonarQube') {
    steps {
        script {
-       def scannerHome = tool 'sonarqube';
+       def scannerHome = tool 'SonarQube Scanner 4.6.2.2472';
            withSonarQubeEnv("sonarqube-container") {
            sh "${tool("sonarqube")}/bin/sonar-scanner \
            -Dsonar.projectKey=python-project-test2 \
