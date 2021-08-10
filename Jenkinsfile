@@ -1,6 +1,6 @@
 pipeline {
 agent any
-//tools {nodejs "nodenv"}
+tools {nodejs "nodenv"}
 stages {
  stage("Code Checkout from Github") {
   steps {
@@ -14,7 +14,7 @@ stages {
        script {
        def scannerHome = tool 'SonarQube Scanner';
            //withSonarQubeEnv("sonarqube-container") {
-           sh "${tool("sonarqube")}/bin/sonar-scanner \
+           sh "${tool("SonarQube Scanner")}/bin/sonar-scanner \
            -Dsonar.projectKey=python-project-test2 \
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
@@ -26,9 +26,11 @@ stages {
    }
    stage("Install Project Dependencies") {
    steps {
-       nodejs(nodeJSInstallationName: 'nodenv'){
+       //nodejs(nodeJSInstallationName: 'nodenv'){
            sh "npm install"
            }
        }
    }
 }
+}
+
