@@ -15,7 +15,7 @@ stages {
        def scannerHome = tool 'sonarqube';
            withSonarQubeEnv("sonarqube-container") {
            sh "${tool("sonarqube")}/bin/sonar-scanner \
-           -Dsonar.projectKey=test-node-js \
+           -Dsonar.projectKey=python-project-test2 \
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
            -Dsonar.host.url=http://34.234.40.43:9000/ \
