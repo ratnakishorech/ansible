@@ -15,12 +15,11 @@ stages {
        def scannerHome = tool 'SonarQube Scanner';
            //withSonarQubeEnv("sonarqube-container") {
            sh "${tool("SonarQube Scanner")}/bin/sonar-scanner \
-           -Dsonar.projectKey=python-project-test2 \
+           -Dsonar.projectKey=python-project-test2\
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
            -Dsonar.host.url=http://34.234.40.43:9000/ \
            -Dsonar.login=72493430aec029262973c8bad4aa0178c5162c09"
-               }
            }
        }
    }
@@ -28,9 +27,8 @@ stages {
    steps {
        //nodejs(nodeJSInstallationName: 'nodenv'){
            sh "npm install"
-           }
        }
    }
-//}
+}
 }
 
