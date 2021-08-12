@@ -1,6 +1,6 @@
 pipeline {
 agent any
-//tools {nodejs "nodenv"}
+tools {nodejs "node"}
 stages {
  stage("Code Checkout from Github") {
   steps {
@@ -25,9 +25,9 @@ stages {
    }
    stage("Install Project Dependencies") {
    steps {
-       //nodejs(nodeJSInstallationName: 'nodenv'){
+       nodejs(nodeJSInstallationName: 'node'){
            sh "npm install"
-       }//
+       }
    }
 }
 }
