@@ -28,7 +28,7 @@ stages {
    steps {
        //nodejs(nodeJSInstallationName: 'nodenv'){
            sh "npm install"
-           }
+           //}
        }
    }
 }
