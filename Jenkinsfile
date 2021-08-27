@@ -23,11 +23,5 @@ stages {
            }
        }
    }
-   stage("Install Project Dependencies") {
-   steps {
-       //nodejs(nodeJSInstallationName: 'nodenv'){
-           sh "npm install"
-       }//
-   }
 }
 }
