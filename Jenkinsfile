@@ -18,7 +18,7 @@ stages {
            -Dsonar.projectKey=python-project-test2\
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
-           -Dsonar.host.url=http://15.207.247.224:9000/ \
+           -Dsonar.host.url=http://65.1.48.84:9000/ \
            -Dsonar.login=7c4caab7e457ab7ac317f8dec0d5634ff72aa58c"
            }
        }
